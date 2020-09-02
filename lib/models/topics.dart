@@ -1,0 +1,6 @@
+
+enum TopicEnum {
+  MULTIPLICATION_TABLES,
+  SQUARES,
+  CUBES
+}
