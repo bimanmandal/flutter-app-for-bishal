@@ -18,6 +18,7 @@ class MCQApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0.0,
         title: Text(
           "Bishal".toUpperCase(),
           style: Theme.of(context).textTheme.headline4,
@@ -34,7 +35,6 @@ class MCQApp extends StatelessWidget {
                 context),
             topicWidget(Topic("Squares", TopicEnum.SQUARES), context),
             topicWidget(Topic("Cubes", TopicEnum.CUBES), context),
-
           ],
         ),
       ),
