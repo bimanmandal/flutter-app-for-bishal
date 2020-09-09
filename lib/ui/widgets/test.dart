@@ -26,9 +26,9 @@ class _TestState extends State<Test> {
   _checkAnswer(String value, NumberQuestion numberQuestion) {
     setState(() {
       if (value != null) {
-        numberQuestion.setProvidedAnswer(value);
-        numberQuestion.setIsCorrect(
-            double.parse(numberQuestion.correctAnswer) == double.parse(value));
+        // numberQuestion.setProvidedAnswer(value);
+        // numberQuestion.setIsCorrect(
+        //     double.parse(numberQuestion.correctAnswer) == double.parse(value));
       }
     });
   }

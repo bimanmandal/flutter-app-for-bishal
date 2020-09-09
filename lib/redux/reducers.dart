@@ -16,4 +16,14 @@ AppState reducer(AppState prevState, dynamic action) {
   return newState;
 }
 
-MCQState reducerMCQ()
+MCQState reducerMCQ(MCQState prevState, dynamic action) {
+  MCQState newState = MCQState.fromMCQState(prevState);
+
+  if (action is TopicSelection) {
+    // newState.numberRange = action.payload;
+  } else if (action is SubmitAnswer) {
+    newState.calculateResult();
+  }
+
+
+}

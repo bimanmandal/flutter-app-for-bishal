@@ -1,6 +1,6 @@
-import 'package:Bishal/screens/about/about_page.dart';
-import 'package:Bishal/screens/home/home_page.dart';
-import 'package:Bishal/screens/settings/settings_page.dart';
+import 'package:Bishal/ui/screens/about/about_page.dart';
+import 'package:Bishal/ui/screens/home/home_page.dart';
+import 'package:Bishal/ui/screens/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class DrawerMenu extends StatelessWidget {

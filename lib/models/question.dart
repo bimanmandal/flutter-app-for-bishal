@@ -12,13 +12,4 @@ class NumberQuestion {
   bool isCorrect = false;
 
   NumberQuestion.set(this.questionText, this.correctAnswer);
-
-  void setProvidedAnswer(String providedAnswer) {
-    this.providedAnswer = providedAnswer;
-  }
-
-  void setIsCorrect(bool result) {
-    this.isCorrect = result;
-  }
-  
 }

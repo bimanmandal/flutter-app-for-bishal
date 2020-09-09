@@ -13,12 +13,13 @@ class Italic {
   Italic(this.payload);
 }
 
-class NumberRangeSelect {
-  final List<int> payload;
-  NumberRangeSelect(this.payload);
+class TopicSelection {
+  TopicSelection(this.minNumber, this.maxNumber);
+  final int minNumber;
+  final int maxNumber;
 }
 
 class SubmitAnswer {
-  final bool payload;
   SubmitAnswer(this.payload);
+  final bool payload;
 }

@@ -12,17 +12,6 @@ class Result extends StatelessWidget {
 
   const Result({Key key, this.questions}) : super(key: key);
 
-  _calculateResult(List<NumberQuestion> questions) {
-    int score = 0;
-    int totalQuestion = 0;
-    for (int i = 0; i < questions.length; i++) {
-      totalQuestion += 1;
-      if (questions[i].isCorrect) score += 1;
-    }
-
-    return "$score / $totalQuestion";
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +36,7 @@ class Result extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Text(
-                    "Your Score : ${_calculateResult(questions)}",
+                    "Your Score : ",
                     style: Theme.of(context).textTheme.headline4,
                   ),
                 ),
