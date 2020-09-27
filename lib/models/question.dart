@@ -1,15 +1,22 @@
-class Question {
-  String questionText;
-  bool isCorrect;
+import 'package:equatable/equatable.dart';
 
-  Question.name(this.questionText, this.isCorrect);
-}
+class Question extends Equatable {
+  final int questionId;
+  final String questionText;
+  final String answer;
+  List<String> options = List.empty();
+  String providedAnswer;
 
-class NumberQuestion {
-  String questionText;
-  String correctAnswer;
-  String providedAnswer = "";
-  bool isCorrect = false;
+  Question(this.questionText, this.answer, this.questionId);
 
-  NumberQuestion.set(this.questionText, this.correctAnswer);
+  Question.withOptions(this.questionId, {this.questionText, this.answer, this.options});
+
+
+  @override
+  String toString() {
+    return 'Question{questionText: $questionText, answer: $answer, options: $options, providedAnswer: $providedAnswer}';
+  }
+
+  @override
+  List<Object> get props => [questionText, answer, options, providedAnswer];
 }
