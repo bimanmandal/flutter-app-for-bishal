@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   final ExamRepository examRepository = ExamRepository();
-  TestBloc testBloc = TestBloc(examRepository);
 
   QuestionBloc questionBloc = QuestionBloc(examRepository);
+  TestBloc testBloc = TestBloc(examRepository,questionBloc);
 
   questionBloc
       .add(QuestionSelectedEvent());

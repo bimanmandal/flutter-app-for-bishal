@@ -17,7 +17,6 @@ class ExamRepository {
   }
 
   void setAnswer(int index, String answer) {
-    print("setting answer");
     var question = this._questions.stream.value;
     question[index].providedAnswer = answer;
     this._questions.add(question);

@@ -39,7 +39,6 @@ class QuestionBloc extends Bloc<QuestionEvent, QuestionState> {
     final int index = event.index;
     final String answer = event.answer;
     _examRepository.setAnswer(index, answer);
-    yield PopulateQuestionState();
   }
 
   Stream<QuestionState> mapInitQuestionEventToState(InitQuestionEvent event) async* {

@@ -7,6 +7,8 @@ class TestInitated extends TestEvent {}
 
 class TestStarted extends TestEvent {}
 
+class QuestionPreparedEvent extends TestEvent{}
+
 class TestTicked extends TestEvent {
   final int duration;
   TestTicked(this.duration);
