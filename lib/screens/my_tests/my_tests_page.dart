@@ -10,12 +10,34 @@ import 'package:line_icons/line_icons.dart';
 class MyTestsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return StreamBuilder<List<ExamSummary>>(
       stream: RepositoryProvider.of<ExamRepository>(context).getAllSummaries(),
       builder: (context, AsyncSnapshot<List<ExamSummary>> snapshot) {
         if(!snapshot.hasData)
           return CircularProgressIndicator();
+        if (snapshot.hasData && snapshot.data.isEmpty)
+          return Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image.asset(
+                  'assets/no_data.png',
+                  height: 200,
+                  width: 200,
+                  fit: BoxFit.contain,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Here you will get all your attempted Tests'),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Write some test!!'),
+                ),
+              ],
+            ),
+          );
         return ListView.builder(
           itemCount: snapshot.data.length,
           itemBuilder: (context, index) {

@@ -1,5 +1,6 @@
 import 'package:Bishal/common/app_bar.dart';
 import 'package:Bishal/screens/info_page/info_page.dart';
+import 'package:Bishal/screens/learn/Learn_home.dart';
 import 'package:Bishal/screens/my_tests/my_tests_page.dart';
 import 'package:Bishal/screens/test_list/test_list.dart';
 import 'package:Bishal/widgets/bottom_bar_title.dart';
@@ -20,15 +21,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
-  static const int agenda = 0;
-  static const int mySchedule = 1;
-  static const int notifications = 2;
+  static const int learn = 0;
+  static const int writeTests = 1;
+  static const int myTests = 2;
   static const int profile = 3;
 
   final _tabs = {
-    agenda: 'agenda',
-    mySchedule: 'mySchedule',
-    notifications: 'notifications',
+    learn: 'learn',
+    writeTests: 'writeTests',
+    myTests: 'myTests',
     profile: 'profile',
   };
 
@@ -42,6 +43,7 @@ class _HomePageState extends State<HomePage> {
           IndexedStack(
             index: _currentIndex,
             children: <Widget>[
+              LearnHomePage(),
               TestList(),
               MyTestsPage(),
               InfoPage()
@@ -77,8 +79,18 @@ class _HomePageState extends State<HomePage> {
             child: Icon(LineIcons.book),
           ),
           title: BottomBarTitle(
+            title: 'Learn',
+            showTitle: _currentIndex != learn,
+          )
+        ),
+        BottomNavigationBarItem(
+          icon: Container(
+            height: itemHeight,
+            child: Icon(LineIcons.pencil_square_o),
+          ),
+          title: BottomBarTitle(
             title: 'Write Test',
-            showTitle: _currentIndex != agenda,
+            showTitle: _currentIndex != writeTests,
           )
         ),
         BottomNavigationBarItem(
@@ -88,7 +100,7 @@ class _HomePageState extends State<HomePage> {
             ),
             title: BottomBarTitle(
               title: 'My Tests',
-              showTitle: _currentIndex != mySchedule,
+              showTitle: _currentIndex != myTests,
             )
         ),
         BottomNavigationBarItem(

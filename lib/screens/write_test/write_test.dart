@@ -41,6 +41,7 @@ class _WriteTestPageState extends State<WriteTestPage> {
           iconTheme: Theme.of(context)
               .iconTheme
               .copyWith(color: Theme.of(context).accentColor),
+
         ),
         body: BodyWidget());
   }
@@ -50,13 +51,14 @@ class Hello extends StatelessWidget {
   final List<Question> questions;
 
   Hello({Key key, this.questions}) : super(key: key);
-  final PageController _controller = PageController(initialPage: 0);
+  final PageController _controller = PageController(initialPage: 0,);
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: PageView.builder(
         controller: _controller,
+        physics: NeverScrollableScrollPhysics(),
         itemCount: questions.length,
         itemBuilder: (context, index) {
           return Card(
@@ -84,9 +86,12 @@ class Hello extends StatelessWidget {
                       LineIcons.chevron_circle_left,
                       size: 64,
                     ),
-                    onTap: () => _controller.animateToPage(--index,
+                    onTap: () {
+                      _controller.animateToPage(--index,
                         duration: Duration(milliseconds: 500),
-                        curve: Curves.easeInOut),
+                        curve: Curves.easeInOut);
+                      FocusScope.of(context).requestFocus(FocusNode());
+                    },
                   ),
                 ),
               if (index != questions.length - 1)
@@ -97,9 +102,12 @@ class Hello extends StatelessWidget {
                       LineIcons.chevron_circle_right,
                       size: 64,
                     ),
-                    onTap: () => _controller.animateToPage(++index,
+                    onTap: () {
+                      _controller.animateToPage(++index,
                         duration: Duration(milliseconds: 500),
-                        curve: Curves.easeInOut),
+                        curve: Curves.easeInOut);
+                      FocusScope.of(context).requestFocus(FocusNode());
+                    },
                   ),
                 ),
             ],
@@ -114,6 +122,7 @@ class InputBox extends StatefulWidget {
   final int index;
   final String answer;
 
+
   InputBox({Key key, this.index, this.answer}) : super(key: key);
 
   @override
@@ -121,11 +130,20 @@ class InputBox extends StatefulWidget {
 }
 
 class _InputBoxState extends State<InputBox> {
-  final TextEditingController _textEditingController = TextEditingController();
+  TextEditingController _textEditingController;
+
 
   @override
   void initState() {
-    _textEditingController.text = widget.answer;
+      _textEditingController = TextEditingController();
+      _textEditingController.text = widget.answer;
+  }
+
+
+  @override
+  void dispose() {
+    _textEditingController.dispose();
+    super.dispose();
   }
 
   @override
@@ -135,6 +153,7 @@ class _InputBoxState extends State<InputBox> {
       child: TextField(
         controller: _textEditingController,
         keyboardType: TextInputType.number,
+        autofocus: true,
         style: TextStyle(fontSize: 20),
         textAlign: TextAlign.center,
         decoration: InputDecoration(
