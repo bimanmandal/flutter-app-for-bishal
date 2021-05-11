@@ -51,7 +51,7 @@ class MyTestsPage extends StatelessWidget {
                       .accentColor)),
               child: ListTile(
                 dense: false,
-                leading: Icon(LineIcons.caret_right,),
+                leading: Icon(LineIcons.caretRight,),
                 title: Text(snapshot.data[index].examName),
                 subtitle: Text(snapshot.data[index].score),
                 trailing: Text("${DateFormat('dd MMM').format(snapshot.data[index].dateTime)}"),

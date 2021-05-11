@@ -12,6 +12,7 @@ class LearnHomePage extends StatelessWidget {
     "SqurareRoot": LearnType.SQUAREROOT,
     "CubeRoot": LearnType.CUBEROOT,
     "Logarithms": LearnType.LOGARITHMS,
+    "Sets": LearnType.SETS
   };
 
   @override

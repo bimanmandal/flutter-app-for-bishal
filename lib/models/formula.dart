@@ -1,11 +1,13 @@
 class Formula {
   String title;
-  String body;
+  List<String> body;
 
   Formula(this.title, this.body);
 
   factory Formula.fromJson(dynamic json) {
-    return Formula(json['title'] as String?? "", json['body'] as String?? "");
+    String title = json['title'] as String?? "";
+    List<String> body = List<String>.from(json['body'] as List<dynamic>?? List.empty());
+    return Formula(title, body);
   }
 
   @override

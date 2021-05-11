@@ -86,7 +86,8 @@ class _HomePageState extends State<HomePage> {
         BottomNavigationBarItem(
           icon: Container(
             height: itemHeight,
-            child: Icon(LineIcons.pencil_square_o),
+            child: Icon(LineIcons.pen),
+            // child: Icon(LineIcons.pencil_square_o),
           ),
           title: BottomBarTitle(
             title: 'Write Test',
@@ -106,7 +107,7 @@ class _HomePageState extends State<HomePage> {
         BottomNavigationBarItem(
             icon: Container(
               height: itemHeight,
-              child: Icon(LineIcons.info_circle),
+              child: Icon(LineIcons.infoCircle),
             ),
             title: BottomBarTitle(
               title: 'Info',

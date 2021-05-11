@@ -7,4 +7,5 @@ enum LearnType {
   SQUAREROOT,
   CUBEROOT,
   LOGARITHMS,
+  SETS,
 }

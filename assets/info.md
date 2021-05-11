@@ -1,7 +1,11 @@
-## Bishal Karmakar
+# Bishal Karmakar
 ---
-I am a former DAV student, graduated on Mathematics from Calcutta University.
-I have around 10 years of teaching experience.
+---
+---
+---
+## A former DAV student and a Calcutta University graduate in mathematics with 09-years of teaching experience.
 
 ---
-The app is a small initiate towards Digital Education.
+---
+--- 
+## This app is a small initiative to reach-out and guide students who are facing any struggle with mathematical concepts or calculations. It also aims to help students perceive mathematics as an interesting subject rather than a bland one.

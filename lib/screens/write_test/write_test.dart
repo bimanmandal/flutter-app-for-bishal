@@ -83,7 +83,7 @@ class Hello extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: InkWell(
                     child: Icon(
-                      LineIcons.chevron_circle_left,
+                      LineIcons.chevronCircleLeft,
                       size: 64,
                     ),
                     onTap: () {
@@ -99,7 +99,7 @@ class Hello extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: InkWell(
                     child: Icon(
-                      LineIcons.chevron_circle_right,
+                      LineIcons.chevronCircleRight,
                       size: 64,
                     ),
                     onTap: () {

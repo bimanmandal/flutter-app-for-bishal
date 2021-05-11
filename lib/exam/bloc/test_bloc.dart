@@ -39,7 +39,7 @@ class TestBloc extends Bloc<TestEvent, TestState> {
   }
 
   Stream<TestState> mapTestStartToState(QuestionPreparedEvent questionPreparedEvent) async* {
-    final int ticks = _examRepository.questions().stream.value.length * 5;
+    final int ticks = await _examRepository.questions().stream.length * 5;
     // final int ticks = 10000;
     _tickerSubscription?.cancel();
     _tickerSubscription = _ticker.tick(ticks: ticks ).listen((event) {

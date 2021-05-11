@@ -11,6 +11,8 @@ import 'package:rxdart/rxdart.dart';
 class ExamRepository {
   final BehaviorSubject<List<Question>> _questions = BehaviorSubject<List<Question>>();
   String examName;
+  final ExamDetailsDao examDetailsDao = ExamDetailsDao();
+  final ExamSummaryDao examSummaryDao = ExamSummaryDao();
 
   BehaviorSubject<List<Question>> questions()  {
     return  _questions ;
@@ -37,8 +39,8 @@ class ExamRepository {
   }
 
   void saveToDatabase() async {
-    ExamSummaryDao examSummaryDao = ExamSummaryDao();
-    ExamDetailsDao examDetailsDao = ExamDetailsDao();
+    // ExamSummaryDao examSummaryDao = ExamSummaryDao();
+    // ExamDetailsDao examDetailsDao = ExamDetailsDao();
 
     DateFormat format = DateFormat("yyyyMMddHHmmss");
     int examId = int.parse(format.format(DateTime.now()));
@@ -63,12 +65,12 @@ class ExamRepository {
   }
 
   Stream<List<ExamSummary>> getAllSummaries() {
-    ExamSummaryDao examSummaryDao = ExamSummaryDao();
+    // ExamSummaryDao examSummaryDao = ExamSummaryDao();
     return Stream.fromFuture(examSummaryDao.getExamSummaries());
   }
 
   Stream<List<ExamDetails>> getExamDetails(dynamic examId) {
-    ExamDetailsDao examDetailsDao = ExamDetailsDao();
+    // ExamDetailsDao examDetailsDao = ExamDetailsDao();
     return Stream.fromFuture(examDetailsDao.getExamDetails(examId));
   }
 

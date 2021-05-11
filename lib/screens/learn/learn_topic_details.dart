@@ -2,9 +2,10 @@ import 'dart:math';
 
 import 'package:Bishal/common/app_bar.dart';
 import 'package:Bishal/models/learn_type.dart';
-import 'package:Bishal/screens/learn/widgets/algebra.dart';
+import 'package:Bishal/screens/learn/widgets/formula_widget.dart';
 import 'package:Bishal/screens/learn/widgets/multiplication_widget.dart';
 import 'package:Bishal/screens/learn/widgets/other_number.dart';
+import 'package:Bishal/screens/learn/widgets/webview_widget.dart';
 import 'package:flutter/material.dart';
 
 class LearnTopicDetails extends StatelessWidget {
@@ -24,6 +25,8 @@ class LearnTopicDetails extends StatelessWidget {
           case LearnType.EXPONENTS :
             return FormulaWidget(formulaPath: "assets/formulas/exponents.json",);
             break;
+          case LearnType.SETS :
+            return WebViewFormulaWidget(url: "https://bishal-karmakar.web.app/sets.html",);
           default:
             return GridView.count(
               crossAxisCount: 3,

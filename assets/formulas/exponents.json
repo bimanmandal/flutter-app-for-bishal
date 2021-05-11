@@ -1,26 +1,28 @@
 [
   {
     "title" : "Product",
-    "body" : "$$a^m \\times a^n = a^{m+n}$$ $$ a^m \\times b^m = (a \\times b)^m$$"
+    "body" : ["a^m \\times a^n = a^{m+n}",
+      " a^m \\times b^m = (a \\times b)^m"]
   },
   {
     "title" : "Quotient",
-    "body" : "$$\\frac {a^m} {a^n}  = a^{m-n} $$$$ \\frac{a^m} {b^m}  = \\left ( \\frac{a}{b} \\right )^m$$"
+    "body" : ["\\frac {a^m} {a^n}  = a^{m-n} ",
+      " \\frac{a^m} {b^m}  = \\left ( \\frac{a}{b} \\right )^m"]
   },
   {
     "title" : "Power of Power",
-    "body" : "$$\\left ( a ^ m \\right )^p = a ^ {m \\times p}$$"
+    "body" : ["\\left ( a ^ m \\right )^p = a ^ {m \\times p}"]
   },
   {
     "title" : "Zero Exponents",
-    "body" : "$$a^0 = 1$$"
+    "body" : ["a^0 = 1"]
   },
   {
     "title" : "Negative Exponents",
-    "body" : "$$a^{-n} = \\left ( \\frac {1}{a} \\right ) ^ n$$"
+    "body" : ["a^{-n} = \\left ( \\frac {1}{a} \\right ) ^ n"]
   },
   {
     "title": "Fractional Exponents",
-    "body" : "$$a ^ \\frac{p}{q} = \\sqrt[q]{a^p}$$"
+    "body" : ["a ^ \\frac{p}{q} = \\sqrt[q]{a^p}"]
   }
 ]
