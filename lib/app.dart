@@ -98,11 +98,22 @@ class BlocProviders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final examRepository = RepositoryProvider.of<ExamRepository>(context);
+    
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider<ExamBloc>(
+            create: (context) => ExamBloc(examRepository),
+          ),
+          BlocProvider<QuestionBloc>(
+            create: (context) => QuestionBloc(examRepository),
+          )
+        ], 
+        child: child);
 
     return BlocProvider(
       create: (context) => QuestionBloc(examRepository),
       child: BlocProvider(
-        create: (context) => TestBloc(examRepository, BlocProvider.of<QuestionBloc>(context)),
+        create: (context) => ExamBloc(examRepository),
         child: child,
       ),
     );

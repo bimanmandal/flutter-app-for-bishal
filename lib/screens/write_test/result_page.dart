@@ -8,7 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
 
 class ResultPage extends StatelessWidget {
-
   calculateScore(List<Question> questions) {
     int totalQuestions = 0;
     int score = 0;
@@ -24,7 +23,7 @@ class ResultPage extends StatelessWidget {
     return Scaffold(
         appBar: BishalAppBar(),
         body: StreamBuilder<List<Question>>(
-            stream: RepositoryProvider.of<ExamRepository>(context).questions(),
+            stream: RepositoryProvider.of<ExamRepository>(context).questionsStream(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return Column(
@@ -56,7 +55,8 @@ class ResultPage extends StatelessWidget {
                                                 width: 2,
                                               ),
                                               Text(snapshot.data[index]
-                                                      .providedAnswer ??"")
+                                                      .providedAnswer ??
+                                                  "")
                                             ],
                                           ),
                                           SizedBox(
@@ -98,6 +98,4 @@ class ResultPage extends StatelessWidget {
               }
             }));
   }
-
-
 }

@@ -9,29 +9,28 @@ import 'package:intl/intl.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ExamRepository {
-  final BehaviorSubject<List<Question>> _questions = BehaviorSubject<List<Question>>();
+  List<Question> questions = List<Question>.empty(growable: true);
   String examName;
-  final ExamDetailsDao examDetailsDao = ExamDetailsDao();
-  final ExamSummaryDao examSummaryDao = ExamSummaryDao();
 
-  BehaviorSubject<List<Question>> questions()  {
-    return  _questions ;
+  BehaviorSubject<List<Question>> questionsStream()  {
+    final subject =   BehaviorSubject<List<Question>>();
+    subject.add(questions);
+    return subject;
   }
 
   void setAnswer(int index, String answer) {
-    var question = this._questions.stream.value;
+    var question = this.questions;
     question[index].providedAnswer = answer;
-    this._questions.add(question);
   }
 
   void reset() {
-    _questions.add(List.empty());
+    questions = List<Question>.empty(growable: true);
   }
 
   String calculateScore()  {
     int totalQuestion = 0;
     int marksScored = 0;
-    _questions.stream.value.forEach((element) {
+    questions.forEach((element) {
       if (element.answer == element.providedAnswer) marksScored++;
       totalQuestion++;
     });
@@ -39,8 +38,8 @@ class ExamRepository {
   }
 
   void saveToDatabase() async {
-    // ExamSummaryDao examSummaryDao = ExamSummaryDao();
-    // ExamDetailsDao examDetailsDao = ExamDetailsDao();
+    ExamSummaryDao examSummaryDao = ExamSummaryDao();
+    ExamDetailsDao examDetailsDao = ExamDetailsDao();
 
     DateFormat format = DateFormat("yyyyMMddHHmmss");
     int examId = int.parse(format.format(DateTime.now()));
@@ -51,7 +50,7 @@ class ExamRepository {
         dateTime: DateTime.now(),
         score: calculateScore());
 
-    List<ExamDetails> examDetails = _questions.stream.value.map((e) =>
+    List<ExamDetails> examDetails = questions.map((e) =>
         ExamDetails(
             examId: examId,
             isCorrect: (e.answer == e.providedAnswer),
@@ -60,17 +59,17 @@ class ExamRepository {
 
     print(examSummary);
 
-    await examSummaryDao..insert(examSummary);
-    await examDetailsDao..insertAll(examDetails);
+    examSummaryDao..insert(examSummary);
+    examDetailsDao..insertAll(examDetails);
   }
 
   Stream<List<ExamSummary>> getAllSummaries() {
-    // ExamSummaryDao examSummaryDao = ExamSummaryDao();
+    ExamSummaryDao examSummaryDao = ExamSummaryDao();
     return Stream.fromFuture(examSummaryDao.getExamSummaries());
   }
 
   Stream<List<ExamDetails>> getExamDetails(dynamic examId) {
-    // ExamDetailsDao examDetailsDao = ExamDetailsDao();
+    ExamDetailsDao examDetailsDao = ExamDetailsDao();
     return Stream.fromFuture(examDetailsDao.getExamDetails(examId));
   }
 
@@ -79,7 +78,7 @@ class ExamRepository {
     int start = numberRange.start.round();
     int end = numberRange.end.round();
     int numberOfQuestions = (end - start + 1 >= 10) ? 10 : end - start + 1;
-    List<Question> questions = List();
+    List<Question> questions = List.empty(growable: true);
 
     switch (testType) {
       case TestType.MULTIPICATION:
@@ -124,17 +123,21 @@ class ExamRepository {
           questionId ++;
         });
         break;
+      case TestType.CUSTOM:
+        // TODO: Handle this case.
+        break;
     }
 
+    print(questions);
+
     print("Questions Generated");
-    _questions.add(questions);
   }
 
   _genUniqueRandomNumber(int start, int end, int size) {
     var randomNumberGenerator = new Random();
-    List<int> uniqueNums = List();
+    List<int> uniqueNums = List.empty(growable: true);
     if (size > end - start + 1)
-      return List<int>();
+      return List<int>.empty();
     else if (size == end - start + 1) {
       uniqueNums = List.generate(end - start + 1, (index) => start + index);
     } else {

@@ -1,4 +1,4 @@
-export 'test_bloc.dart';
-export 'test_event.dart';
-export 'test_state.dart';
+export 'exam_bloc.dart';
+export 'exam_event.dart';
+export 'exam_state.dart';
 export 'ticker.dart';

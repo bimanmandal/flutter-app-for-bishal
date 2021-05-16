@@ -41,7 +41,6 @@ class _WriteTestPageState extends State<WriteTestPage> {
           iconTheme: Theme.of(context)
               .iconTheme
               .copyWith(color: Theme.of(context).accentColor),
-
         ),
         body: BodyWidget());
   }
@@ -51,7 +50,9 @@ class Hello extends StatelessWidget {
   final List<Question> questions;
 
   Hello({Key key, this.questions}) : super(key: key);
-  final PageController _controller = PageController(initialPage: 0,);
+  final PageController _controller = PageController(
+    initialPage: 0,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +67,8 @@ class Hello extends StatelessWidget {
             children: [
               Wrap(
                 children: [
-                  Text("${index + 1}. ${questions[index].questionText}",
+                  Text(
+                    "${index + 1}. ${questions[index].questionText}",
                     style: TextStyle(fontSize: 32),
                   ),
                 ],
@@ -88,8 +90,8 @@ class Hello extends StatelessWidget {
                     ),
                     onTap: () {
                       _controller.animateToPage(--index,
-                        duration: Duration(milliseconds: 500),
-                        curve: Curves.easeInOut);
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.easeInOut);
                       FocusScope.of(context).requestFocus(FocusNode());
                     },
                   ),
@@ -104,8 +106,8 @@ class Hello extends StatelessWidget {
                     ),
                     onTap: () {
                       _controller.animateToPage(++index,
-                        duration: Duration(milliseconds: 500),
-                        curve: Curves.easeInOut);
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.easeInOut);
                       FocusScope.of(context).requestFocus(FocusNode());
                     },
                   ),
@@ -122,7 +124,6 @@ class InputBox extends StatefulWidget {
   final int index;
   final String answer;
 
-
   InputBox({Key key, this.index, this.answer}) : super(key: key);
 
   @override
@@ -132,13 +133,11 @@ class InputBox extends StatefulWidget {
 class _InputBoxState extends State<InputBox> {
   TextEditingController _textEditingController;
 
-
   @override
   void initState() {
-      _textEditingController = TextEditingController();
-      _textEditingController.text = widget.answer;
+    _textEditingController = TextEditingController();
+    _textEditingController.text = widget.answer;
   }
-
 
   @override
   void dispose() {
@@ -157,8 +156,8 @@ class _InputBoxState extends State<InputBox> {
         style: TextStyle(fontSize: 20),
         textAlign: TextAlign.center,
         decoration: InputDecoration(
-          // labelText: "Answer",
-        ),
+            // labelText: "Answer",
+            ),
         onChanged: (value) => BlocProvider.of<QuestionBloc>(context)
             .add(ChangeAnswer(value, widget.index)),
       ),
@@ -169,9 +168,9 @@ class _InputBoxState extends State<InputBox> {
 class BodyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<TestBloc, TestState>(
+    return BlocConsumer<ExamBloc, ExamState>(
       listener: (context, state) {
-        if (state is TestComplete) {
+        if (state is ExamComplete) {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
@@ -180,13 +179,13 @@ class BodyWidget extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        if (state is TestInProgress) {
+        if (state is ExamInProgress) {
           final String minutesStr =
               ((state.duration / 60) % 60).floor().toString().padLeft(2, '0');
           final String secondsStr =
               (state.duration % 60).floor().toString().padLeft(2, '0');
           return StreamBuilder<List<Question>>(
-            stream: RepositoryProvider.of<ExamRepository>(context).questions(),
+            stream: RepositoryProvider.of<ExamRepository>(context).questionsStream(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return Column(
@@ -203,9 +202,12 @@ class BodyWidget extends StatelessWidget {
                       questions: snapshot.data,
                     ),
                     FlatButton(
-                      child: Text("Submit Exam", style: TextStyle(fontSize: 32),),
+                      child: Text(
+                        "Submit Exam",
+                        style: TextStyle(fontSize: 32),
+                      ),
                       onPressed: () {
-                        BlocProvider.of<TestBloc>(context)..add(TestFinished());
+                        BlocProvider.of<ExamBloc>(context)..add(ExamFinished());
                         return Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(

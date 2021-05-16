@@ -1,11 +1,10 @@
 import 'package:Bishal/common/app_bar.dart';
+import 'package:Bishal/screens/formula/formula_home.dart';
 import 'package:Bishal/screens/info_page/info_page.dart';
-import 'package:Bishal/screens/learn/Learn_home.dart';
+import 'package:Bishal/screens/learn/learn_home.dart';
 import 'package:Bishal/screens/my_tests/my_tests_page.dart';
 import 'package:Bishal/screens/test_list/test_list.dart';
 import 'package:Bishal/widgets/bottom_bar_title.dart';
-import 'package:Bishal/widgets/notification_page.dart';
-import 'package:Bishal/widgets/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
@@ -19,15 +18,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
 
   static const int learn = 0;
-  static const int writeTests = 1;
-  static const int myTests = 2;
-  static const int profile = 3;
+  static const int formulas = 1;
+  static const int writeTests = 2;
+  static const int myTests = 3;
+  static const int profile = 4;
 
   final _tabs = {
     learn: 'learn',
+    formulas: 'formulas',
     writeTests: 'writeTests',
     myTests: 'myTests',
     profile: 'profile',
@@ -44,6 +45,7 @@ class _HomePageState extends State<HomePage> {
             index: _currentIndex,
             children: <Widget>[
               LearnHomePage(),
+              FormulaHomePage(),
               TestList(),
               MyTestsPage(),
               InfoPage()
@@ -60,6 +62,8 @@ class _HomePageState extends State<HomePage> {
     final textSize = 12.0;
 
     return BottomNavigationBar(
+      showSelectedLabels: false,
+      // showUnselectedLabels: false,
       currentIndex: _currentIndex,
       unselectedItemColor: Theme.of(context).brightness == Brightness.light
           ? Theme.of(context).bottomAppBarTheme.color
@@ -78,10 +82,14 @@ class _HomePageState extends State<HomePage> {
             height: itemHeight,
             child: Icon(LineIcons.book),
           ),
-          title: BottomBarTitle(
-            title: 'Learn',
-            showTitle: _currentIndex != learn,
-          )
+          label: 'Learn'
+        ),
+        BottomNavigationBarItem(
+            icon: Container(
+              height: itemHeight,
+              child: Icon(LineIcons.book),
+            ),
+            label: 'Formulas'
         ),
         BottomNavigationBarItem(
           icon: Container(
@@ -89,30 +97,21 @@ class _HomePageState extends State<HomePage> {
             child: Icon(LineIcons.pen),
             // child: Icon(LineIcons.pencil_square_o),
           ),
-          title: BottomBarTitle(
-            title: 'Write Test',
-            showTitle: _currentIndex != writeTests,
-          )
+          label: 'Write Test',
         ),
         BottomNavigationBarItem(
             icon: Container(
               height: itemHeight,
               child: Icon(LineIcons.database),
             ),
-            title: BottomBarTitle(
-              title: 'My Tests',
-              showTitle: _currentIndex != myTests,
-            )
+            label: 'My Tests'
         ),
         BottomNavigationBarItem(
             icon: Container(
               height: itemHeight,
               child: Icon(LineIcons.infoCircle),
             ),
-            title: BottomBarTitle(
-              title: 'Info',
-              showTitle: _currentIndex != profile,
-            )
+            label: 'Info'
         )
       ],
     );

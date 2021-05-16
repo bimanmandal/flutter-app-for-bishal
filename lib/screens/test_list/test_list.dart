@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,24 +22,26 @@ class TestList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
-        // scrollDirection: Axis.horizontal,
-        crossAxisCount: 2,
-        children: topicMap.keys.map((String topic) {
-          return GridTile(
-              child: Card(
-            shadowColor: Theme.of(context).accentColor,
+    return ListView(
+      padding: EdgeInsets.all(8),
+      children: topicMap.keys.map((topic) =>
+          Container(
             margin: EdgeInsets.all(4),
-            child: InkWell(
-              onTap: () => _showMyDialog(context, topicMap[topic]),
-              child: Center(
-                  child: Text(
-                topic,
-                style: TextStyle(fontSize: 20),
-              )),
+            padding: EdgeInsets.all(4),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                border: Border.all(color: Theme
+                    .of(context)
+                    .accentColor)),
+          child: ListTile(
+            leading: Icon(LineIcons.alternateFeather),
+            title: Text(
+              topic,
+              style: TextStyle(fontSize: 20),
             ),
-          ));
-        }).toList());
+            onTap: () => _showMyDialog(context, topicMap[topic]),
+          ))).toList(),
+    );
   }
 
   Future<void> _showMyDialog(BuildContext context, TestType testType) async {
@@ -48,6 +51,8 @@ class TestList extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          insetPadding: EdgeInsets.symmetric(horizontal: 0),
+          contentPadding: EdgeInsets.all(8),
           title: Text('Select Number Range'),
           content: SingleChildScrollView(
             child: ListBody(
@@ -56,16 +61,16 @@ class TestList extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    FlatButton(
-                      padding: EdgeInsets.all(10),
+                    ElevatedButton(
+                      style: ButtonStyle(
+                        padding: MaterialStateProperty.all(EdgeInsets.all(10)),
+                        backgroundColor: MaterialStateProperty.all(Theme.of(context).accentColor)
+                      ),
                       child: Text('Give Test'),
                       onPressed: () async {
-                        final prefs = await SharedPreferences.getInstance();
-                        final range = RangeValue(prefs.getDouble("range-start"),
-                            prefs.getDouble("range-end"));
-                        BlocProvider.of<TestBloc>(context).add(TestStarted());
-                        BlocProvider.of<QuestionBloc>(context)
-                            .add(QuestionSelectedEvent());
+                        BlocProvider.of<ExamBloc>(context).add(ExamStarted());
+                        // BlocProvider.of<QuestionBloc>(context)
+                        //     .add(QuestionSelectedEvent());
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(

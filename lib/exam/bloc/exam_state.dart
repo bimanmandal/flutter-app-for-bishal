@@ -1,17 +1,16 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
-abstract class TestState extends Equatable {
+abstract class ExamState extends Equatable {
   @override
   List<Object> get props => [];
 }
 
-class TestInital extends TestState {}
+class ExamInitial extends ExamState {}
 
-class TestInProgress extends TestState {
+class ExamInProgress extends ExamState {
   final int duration;
-  TestInProgress({@required this.duration}){
-  }
+  ExamInProgress({@required this.duration});
 
   @override
   String toString() {
@@ -22,7 +21,7 @@ class TestInProgress extends TestState {
   bool operator ==(Object other) =>
       identical(this, other) ||
       super == other &&
-          other is TestInProgress &&
+          other is ExamInProgress &&
           runtimeType == other.runtimeType &&
           duration == other.duration;
 
@@ -30,5 +29,5 @@ class TestInProgress extends TestState {
   int get hashCode => super.hashCode ^ duration.hashCode;
 }
 
-class TestComplete extends TestState {}
+class ExamComplete extends ExamState {}
 

@@ -28,10 +28,10 @@ class QuestionBloc extends Bloc<QuestionEvent, QuestionState> {
   }
 
   Stream<QuestionState> mapQuestionSelectedEventToState(QuestionSelectedEvent event) async* {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    TestType testType = TestType.values.firstWhere((element) => element.toString() == prefs.getString("test-type"));
-    final range = RangeValue(prefs.getDouble("range-start"), prefs.getDouble("range-end"));
-    _examRepository.generateQuestions(testType, range);
+    // final SharedPreferences prefs = await SharedPreferences.getInstance();
+    // TestType testType = TestType.values.firstWhere((element) => element.toString() == prefs.getString("test-type"));
+    // final range = RangeValue(prefs.getDouble("range-start"), prefs.getDouble("range-end"));
+    // _examRepository.generateQuestions(testType, range);
     yield PopulateQuestionState();
   }
 
