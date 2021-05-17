@@ -1,33 +1,29 @@
-import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
+part of 'exam_cubit.dart';
 
-abstract class ExamState extends Equatable {
-  @override
-  List<Object> get props => [];
-}
+enum ExamStatus { initial, started, inProgress, ended}
 
-class ExamInitial extends ExamState {}
+class ExamState extends Equatable {
+  const ExamState._({
+    this.status = ExamStatus.initial,
+    this.duration = 0
+    // this.questions = const <Question>[],
+  });
 
-class ExamInProgress extends ExamState {
+  const ExamState.inital(): this._();
+
+  const ExamState.started() :this._(status : ExamStatus.started);
+
+  const ExamState.inProgress({
+    @required int duration
+  }): this._(status: ExamStatus.inProgress, duration:duration);
+
+  const ExamState.ended() :this._(status : ExamStatus.ended);
+
+  final ExamStatus status;
   final int duration;
-  ExamInProgress({@required this.duration});
+  // final List<Question> questions;
 
   @override
-  String toString() {
-    return 'TestInProgress{duration: $duration}';
-  }
+  List<Object> get props => [status, duration];
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      super == other &&
-          other is ExamInProgress &&
-          runtimeType == other.runtimeType &&
-          duration == other.duration;
-
-  @override
-  int get hashCode => super.hashCode ^ duration.hashCode;
 }
-
-class ExamComplete extends ExamState {}
-

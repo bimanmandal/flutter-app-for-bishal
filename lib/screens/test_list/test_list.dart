@@ -1,8 +1,7 @@
 import 'package:Bishal/exam/bloc/blocks.dart';
+import 'package:Bishal/exam/bloc/exam_cubit.dart';
 import 'package:Bishal/models/range_values.dart';
 import 'package:Bishal/models/test_type.dart';
-import 'package:Bishal/question/bloc/blocks.dart';
-import 'package:Bishal/question/bloc/question_bloc.dart';
 import 'package:Bishal/screens/write_test/write_test.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -68,9 +67,7 @@ class TestList extends StatelessWidget {
                       ),
                       child: Text('Give Test'),
                       onPressed: () async {
-                        BlocProvider.of<ExamBloc>(context).add(ExamStarted());
-                        // BlocProvider.of<QuestionBloc>(context)
-                        //     .add(QuestionSelectedEvent());
+                        BlocProvider.of<ExamCubit>(context).examStarted();
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(

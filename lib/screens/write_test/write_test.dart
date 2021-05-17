@@ -1,11 +1,10 @@
 import 'package:Bishal/exam/bloc/blocks.dart';
+import 'package:Bishal/exam/bloc/exam_cubit.dart';
 import 'package:Bishal/exam/repository/exam_repository.dart';
 import 'package:Bishal/models/question.dart';
-import 'package:Bishal/question/bloc/blocks.dart';
 import 'package:Bishal/screens/write_test/result_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_icons/line_icons.dart';
 
@@ -42,7 +41,7 @@ class _WriteTestPageState extends State<WriteTestPage> {
               .iconTheme
               .copyWith(color: Theme.of(context).accentColor),
         ),
-        body: BodyWidget());
+        body: BodyWidgetUsingCubit());
   }
 }
 
@@ -123,8 +122,9 @@ class Hello extends StatelessWidget {
 class InputBox extends StatefulWidget {
   final int index;
   final String answer;
+  final Function onChanged;
 
-  InputBox({Key key, this.index, this.answer}) : super(key: key);
+  InputBox({Key key, this.index, this.answer, this.onChanged}) : super(key: key);
 
   @override
   _InputBoxState createState() => _InputBoxState();
@@ -147,6 +147,7 @@ class _InputBoxState extends State<InputBox> {
 
   @override
   Widget build(BuildContext context) {
+    final examRepository = RepositoryProvider.of<ExamRepository>(context);
     return Container(
       width: 100,
       child: TextField(
@@ -158,19 +159,18 @@ class _InputBoxState extends State<InputBox> {
         decoration: InputDecoration(
             // labelText: "Answer",
             ),
-        onChanged: (value) => BlocProvider.of<QuestionBloc>(context)
-            .add(ChangeAnswer(value, widget.index)),
+        onChanged: (value) => examRepository.setAnswer(widget.index, value),
       ),
     );
   }
 }
 
-class BodyWidget extends StatelessWidget {
+class BodyWidgetUsingCubit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ExamBloc, ExamState>(
+    return BlocConsumer<ExamCubit, ExamState>(
       listener: (context, state) {
-        if (state is ExamComplete) {
+        if(state.status == ExamStatus.ended) {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
@@ -179,11 +179,12 @@ class BodyWidget extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        if (state is ExamInProgress) {
+
+        if (state.status == ExamStatus.inProgress) {
           final String minutesStr =
-              ((state.duration / 60) % 60).floor().toString().padLeft(2, '0');
+          ((state.duration / 60) % 60).floor().toString().padLeft(2, '0');
           final String secondsStr =
-              (state.duration % 60).floor().toString().padLeft(2, '0');
+          (state.duration % 60).floor().toString().padLeft(2, '0');
           return StreamBuilder<List<Question>>(
             stream: RepositoryProvider.of<ExamRepository>(context).questionsStream(),
             builder: (context, snapshot) {
@@ -194,7 +195,7 @@ class BodyWidget extends StatelessWidget {
                       '$minutesStr:$secondsStr',
                       style: TextStyle(
                           color:
-                              state.duration <= 5 ? Colors.red : Colors.white,
+                          state.duration <= 5 ? Colors.red : Colors.white,
                           fontSize: 32,
                           fontWeight: FontWeight.bold),
                     ),
@@ -207,7 +208,7 @@ class BodyWidget extends StatelessWidget {
                         style: TextStyle(fontSize: 32),
                       ),
                       onPressed: () {
-                        BlocProvider.of<ExamBloc>(context)..add(ExamFinished());
+                        BlocProvider.of<ExamCubit>(context).examEnded();
                         return Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(

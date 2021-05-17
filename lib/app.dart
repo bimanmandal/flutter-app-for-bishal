@@ -1,6 +1,6 @@
 import 'package:Bishal/exam/bloc/blocks.dart';
+import 'package:Bishal/exam/bloc/exam_cubit.dart';
 import 'package:Bishal/exam/repository/exam_repository.dart';
-import 'package:Bishal/question/bloc/blocks.dart';
 import 'package:Bishal/screens/main_page/home_page.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
@@ -101,33 +101,11 @@ class BlocProviders extends StatelessWidget {
     
     return MultiBlocProvider(
         providers: [
-          BlocProvider<ExamBloc>(
-            create: (context) => ExamBloc(examRepository),
-          ),
-          BlocProvider<QuestionBloc>(
-            create: (context) => QuestionBloc(examRepository),
+          BlocProvider<ExamCubit>(
+            create: (context) => ExamCubit(examRepository),
           )
         ], 
         child: child);
 
-    return BlocProvider(
-      create: (context) => QuestionBloc(examRepository),
-      child: BlocProvider(
-        create: (context) => ExamBloc(examRepository),
-        child: child,
-      ),
-    );
-
-    // return MultiBlocProvider(
-    //   providers: [
-    //     BlocProvider<TestBloc>(
-    //       create: (context) => TestBloc(examRepository),
-    //     ),
-    //     BlocProvider<QuestionBloc>(
-    //       create: (context) => QuestionBloc(examRepository),
-    //     )
-    //   ],
-    //   child: child,
-    // );
   }
 }
