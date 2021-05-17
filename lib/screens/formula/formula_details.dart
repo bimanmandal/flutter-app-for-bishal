@@ -32,7 +32,7 @@ class FormulaDetails extends StatelessWidget {
                     .of(context)
                     .accentColor)),
             child: ListTile(
-              leading: Icon(LineIcons.eye),
+              leading: Icon(LineIcons.dna),
               title: Text(
                 chapter.keys.first,
                 style: TextStyle(fontSize: 20),

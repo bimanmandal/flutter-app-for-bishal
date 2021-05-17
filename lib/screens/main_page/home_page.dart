@@ -4,7 +4,6 @@ import 'package:Bishal/screens/info_page/info_page.dart';
 import 'package:Bishal/screens/learn/learn_home.dart';
 import 'package:Bishal/screens/my_tests/my_tests_page.dart';
 import 'package:Bishal/screens/test_list/test_list.dart';
-import 'package:Bishal/widgets/bottom_bar_title.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
@@ -18,7 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _currentIndex = 1;
+  int _currentIndex = 0;
 
   static const int learn = 0;
   static const int formulas = 1;
@@ -87,9 +86,9 @@ class _HomePageState extends State<HomePage> {
         BottomNavigationBarItem(
             icon: Container(
               height: itemHeight,
-              child: Icon(LineIcons.book),
+              child: Icon(LineIcons.dna),
             ),
-            label: 'Formulas'
+            label: 'Gens'
         ),
         BottomNavigationBarItem(
           icon: Container(

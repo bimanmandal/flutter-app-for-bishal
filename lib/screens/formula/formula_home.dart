@@ -26,7 +26,7 @@ class FormulaHomePage extends StatelessWidget {
                       .of(context)
                       .accentColor)),
               child: ListTile(
-                leading: Icon(LineIcons.eye),
+                leading: Icon(LineIcons.dna),
                 title: Text(
                   topic,
                   style: TextStyle(fontSize: 20),
