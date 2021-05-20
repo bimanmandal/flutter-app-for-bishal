@@ -2,7 +2,7 @@ import 'package:Bishal/exam/bloc/blocks.dart';
 import 'package:Bishal/exam/bloc/exam_cubit.dart';
 import 'package:Bishal/exam/repository/exam_repository.dart';
 import 'package:Bishal/screens/main_page/home_page.dart';
-import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -17,64 +17,35 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DynamicTheme(
-      defaultBrightness: Brightness.dark,
-      data: (brightness) => ThemeData(
-        primaryColor: blue,
-        scaffoldBackgroundColor: brightness == Brightness.light
-            ? Colors.grey[100]
-            // ? yellow
-            : Colors.grey[850],
-            // : Colors.black,
-        accentColor: orange,
-        toggleableActiveColor: orange,
-        dividerColor:
-            brightness == Brightness.light ? Colors.white : Colors.white54,
-        brightness: brightness,
-        fontFamily: 'PTSans',
-        bottomAppBarTheme: Theme.of(context).bottomAppBarTheme.copyWith(
-              elevation: 0,
-            ),
-        iconTheme: Theme.of(context).iconTheme.copyWith(color: orange),
-      ),
-      themedWidgetBuilder: (context, data) {
-        return RepositoryProviders(
-          child: BlocProviders(
-            child: MaterialApp(
+    return RepositoryProviders(
+      child: BlocProviders(
+        child: MaterialApp(
               debugShowCheckedModeBanner: false,
-              theme: data,
+              theme: ThemeData(
+                brightness: Brightness.dark,
+                primaryColor: blue,
+                scaffoldBackgroundColor: Colors.grey[850],
+                accentColor: orange,
+                toggleableActiveColor: orange,
+                dividerColor: Colors.white54,
+                fontFamily: 'PTSans',
+                bottomAppBarTheme: Theme.of(context).bottomAppBarTheme.copyWith(
+                  elevation: 0
+                ),
+                iconTheme: Theme.of(context).iconTheme.copyWith(color: orange)
+              ),
               navigatorKey: navigatorKey,
               title: title,
               home: HomePage(
                 title: title,
               ),
             ),
-          ),
-        );
-      },
+      ),
     );
   }
 }
 
 final navigatorKey = GlobalKey<NavigatorState>();
-
-class VariousProviders extends StatefulWidget {
-  final Widget child;
-
-  const VariousProviders({Key key, this.child}) : super(key: key);
-
-  @override
-  _VariousProvidersState createState() => _VariousProvidersState();
-}
-
-class _VariousProvidersState extends State<VariousProviders> {
-  @override
-  Widget build(BuildContext context) {
-    return Provider(
-      child: widget.child,
-    );
-  }
-}
 
 class RepositoryProviders extends StatelessWidget {
   final Widget child;
